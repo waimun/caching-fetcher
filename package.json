@@ -1,0 +1,42 @@
+{
+  "name": "challenge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint framework/ caching-fetch-library/ application/",
+    "lint:fix": "eslint --fix framework/ caching-fetch-library/ application/",
+    "build": "npm run build:server && npm run build:client",
+    "build:server": "rm -rf dist && mkdir dist && cp ./framework/mock-server/mockServiceWorker.js dist/ && esbuild ./framework/server/index.js --bundle --minify --platform=node --outfile=dist/server.js",
+    "build:client": "esbuild ./framework/client/index.js --bundle --minify --platform=browser --outfile=dist/client.js",
+    "start": "npm run build && node dist/server.js",
+    "test": "jest",
+    "test:coverage": "jest --coverage"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.10.0",
+    "@types/node": "^20.12.12",
+    "@types/react": "^18.3.2",
+    "@types/react-dom": "^18.3.0",
+    "esbuild": "^0.21.3",
+    "eslint": "^9.10.0",
+    "eslint-plugin-react": "^7.36.1",
+    "globals": "^15.9.0",
+    "jest": "^29.7.0",
+    "typescript-eslint": "^8.6.0"
+  },
+  "dependencies": {
+    "fastify": "^4.27.0",
+    "msw": "^2.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "valibot": "^0.30.0"
+  },
+  "msw": {
+    "workerDirectory": [
+      "mockServer"
+    ]
+  }
+}
